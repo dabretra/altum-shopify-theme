@@ -616,6 +616,87 @@ img {
   .home-hero__inner {
     grid-template-columns: minmax(0, 1fr);
   }
+/* ===========================
+   ABOUT PAGE
+   =========================== */
+
+.about-altum {
+  background: radial-gradient(circle at top left, #0f3b3c 0, #020908 60%);
+  color: var(--altum-offwhite);
+  padding: 2.8rem 1.25rem 3rem;
+}
+
+.about-altum__inner {
+  max-width: var(--altum-max-width);
+  margin: 0 auto;
+}
+
+.about-altum__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.78rem;
+  color: var(--altum-gold-soft);
+  margin-bottom: 0.4rem;
+}
+
+.about-altum__heading {
+  font-size: clamp(2rem, 3vw, 2.4rem);
+  margin-bottom: 0.7rem;
+  text-transform: uppercase;
+}
+
+.about-altum__lead {
+  font-size: 0.98rem;
+  max-width: 40rem;
+  color: #d3dfdd;
+  margin-bottom: 1.8rem;
+}
+
+.about-altum__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.3rem;
+  margin-bottom: 2rem;
+}
+
+.about-altum__card {
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: var(--altum-radius-lg);
+  padding: 1.2rem 1.3rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.about-altum__card-name {
+  margin: 0 0 0.2rem;
+}
+
+.about-altum__card-role {
+  margin: 0 0 0.7rem;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--altum-gold-soft);
+}
+
+.about-altum__bottom-heading {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 0.4rem;
+}
+
+.about-altum__bottom-copy {
+  font-size: 0.95rem;
+  max-width: 42rem;
+  color: #c6d4d1;
+}
+
+@media (max-width: 640px) {
+  .about-altum {
+    padding-top: 2.2rem;
+  }
+}
+
 }
 
 @media (max-width: 640px) {

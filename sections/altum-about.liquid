@@ -1,0 +1,121 @@
+<section class="about-altum">
+  <div class="about-altum__inner">
+    <div class="about-altum__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="about-altum__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      <h1 class="about-altum__heading">
+        {{ section.settings.heading }}
+      </h1>
+
+      {% if section.settings.lead != blank %}
+        <p class="about-altum__lead">
+          {{ section.settings.lead }}
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="about-altum__grid">
+      <div class="about-altum__card">
+        <h2 class="about-altum__card-name">{{ section.settings.owner1_name }}</h2>
+        <p class="about-altum__card-role">{{ section.settings.owner1_role }}</p>
+        <p>{{ section.settings.owner1_bio }}</p>
+      </div>
+
+      <div class="about-altum__card">
+        <h2 class="about-altum__card-name">{{ section.settings.owner2_name }}</h2>
+        <p class="about-altum__card-role">{{ section.settings.owner2_role }}</p>
+        <p>{{ section.settings.owner2_bio }}</p>
+      </div>
+    </div>
+
+    <div class="about-altum__bottom">
+      <h3 class="about-altum__bottom-heading">
+        {{ section.settings.bottom_heading }}
+      </h3>
+      <p class="about-altum__bottom-copy">
+        {{ section.settings.bottom_copy }}
+      </p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Altum About",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Meet the people behind ALTUM"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "About Altum"
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Intro text",
+      "default": "ALTUM was born in Colorado, where long approaches, bluebird days, and star-lit nights shape the way we design products. We build gear and candles for people who chase the heights of adventure and still care deeply about comfort back home."
+    },
+    {
+      "type": "text",
+      "id": "owner1_name",
+      "label": "Owner 1 name",
+      "default": "Killian"
+    },
+    {
+      "type": "text",
+      "id": "owner1_role",
+      "label": "Owner 1 role",
+      "default": "Co-Founder"
+    },
+    {
+      "type": "textarea",
+      "id": "owner1_bio",
+      "label": "Owner 1 bio",
+      "default": "Killian grew up in New Jersey but traded the coast for Colorado’s high country. He moved west for the adventure, the mountains, and the long days that end with even bigger views. At ALTUM, he obsesses over the details that make gear feel just right—how pants move, how solar packs down, and how a candle’s scent can instantly bring you back to a favorite campsite."
+    },
+    {
+      "type": "text",
+      "id": "owner2_name",
+      "label": "Owner 2 name",
+      "default": "Dan"
+    },
+    {
+      "type": "text",
+      "id": "owner2_role",
+      "label": "Owner 2 role",
+      "default": "Co-Founder"
+    },
+    {
+      "type": "textarea",
+      "id": "owner2_bio",
+      "label": "Owner 2 bio",
+      "default": "Dan is originally from Minnesota and moved to Colorado in 2016 for the mountains and the wide-open spaces he’d always dreamed about. When he’s not climbing or exploring new trails, he’s testing gear and crafting small-batch soy candles in the ALTUM studio—blending scents like Black Rose + Oud to capture the feeling of Colorado nights."
+    },
+    {
+      "type": "text",
+      "id": "bottom_heading",
+      "label": "Bottom heading",
+      "default": "Why we started ALTUM"
+    },
+    {
+      "type": "textarea",
+      "id": "bottom_copy",
+      "label": "Bottom copy",
+      "default": "We wanted gear and goods that felt as intentional as the days we spend outside: pants that move with you, solar that keeps the essentials powered, and candles that turn your home into basecamp. ALTUM is our way of blending those worlds—the heights of adventure and the depths of comfort."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Altum About"
+    }
+  ]
+}
+{% endschema %}
