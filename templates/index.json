@@ -12,6 +12,16 @@
     "main": {
       "type": "altum-landing",
       "blocks": {
+        "offering_card_ae8mEn": {
+          "type": "offering_card",
+          "settings": {
+            "label": "Restore",
+            "title": "Colorado-Made Candles",
+            "text": "Hand-poured in Colorado. Clean-burning, mountain-inspired, crafted for calm after adventure.",
+            "cta_label": "Shop candles",
+            "cta_link": "/collections/candles"
+          }
+        },
         "offering_card_haRhGj": {
           "type": "offering_card",
           "settings": {
@@ -21,10 +31,22 @@
             "cta_label": "Shop pants",
             "cta_link": "/collections/pants"
           }
+        },
+        "offering_card_HXyNM7": {
+          "type": "offering_card",
+          "settings": {
+            "label": "Power",
+            "title": "Portable Solar Panels",
+            "text": "Foldable, ultra-packable solar to keep your essentials charged from trailhead to campsite.",
+            "cta_label": "Shop solar",
+            "cta_link": "/collections/solar"
+          }
         }
       },
       "block_order": [
-        "offering_card_haRhGj"
+        "offering_card_ae8mEn",
+        "offering_card_haRhGj",
+        "offering_card_HXyNM7"
       ],
       "settings": {
         "eyebrow": "Colorado gear & goods, refined",
