@@ -102,7 +102,7 @@
     },
     "featured_collection_rxCnBb": {
       "type": "featured-collection",
-      "name": "Featured collection",
+      "name": "Candles Collection",
       "settings": {
         "heading": "Candles",
         "subheading": "Hand-poured in Colorado. Clean-burning, mountain-inspired scents for after adventure.",
@@ -166,7 +166,7 @@
     },
     "featured_collection_Krqfxa": {
       "type": "featured-collection",
-      "name": "Featured collection",
+      "name": "Apparel Collection",
       "settings": {
         "heading": "Apparel",
         "subheading": "Soft, durable layers built for early drives to the trailhead and late nights in the cabin.",
@@ -176,7 +176,7 @@
     },
     "featured_collection_U8AyAc": {
       "type": "featured-collection",
-      "name": "Featured collection",
+      "name": "Racks & Storage Collection",
       "settings": {
         "heading": "Racks & Storage",
         "subheading": "Gear off the floor, on display. Racks for skis, ropes, and climbing kits.",
