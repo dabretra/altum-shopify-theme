@@ -54,7 +54,7 @@
         "eyebrow": "Colorado-made candles & gear, refined",
         "heading": "Explore the heights of adventure. Sink into the depths of comfort.",
         "subheading": "ALTUM curates adventure-ready pants, off-grid solar power, and small-batch Colorado candle so your time on the mountain and your time at home feel equally dialed in.",
-        "primary_label": "Shop Featured Gear",
+        "primary_label": "Shop Featured Gear{{ section.settings.featured_collection.title }}",
         "primary_link": "/collections/all",
         "secondary_label": "Explore Colorado Candles",
         "secondary_link": "/collections/candles",
@@ -109,10 +109,64 @@
         "collection": "altum-merch",
         "product_limit": 6
       }
+    },
+    "altum_BgrXKW": {
+      "type": "altum",
+      "blocks": {
+        "category_6wKBBx": {
+          "type": "category",
+          "settings": {
+            "eyebrow": "Climb",
+            "title": "Climbing shoes",
+            "link_label": "Shop climbing",
+            "link": ""
+          }
+        },
+        "category_CECb4i": {
+          "type": "category",
+          "settings": {
+            "eyebrow": "Run",
+            "title": "Trail running",
+            "link_label": "Shop running",
+            "link": ""
+          }
+        },
+        "category_LMYyAC": {
+          "type": "category",
+          "settings": {
+            "eyebrow": "Explore",
+            "title": "Hiking & approach",
+            "link_label": "Shop hiking",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_6wKBBx",
+        "category_CECb4i",
+        "category_LMYyAC"
+      ],
+      "name": "La-style home",
+      "settings": {
+        "eyebrow": "Performance in the mountains",
+        "heading": "Climb higher. Run further. Recover better.",
+        "subheading": "Technical footwear and equipment for climbers and outdoor athletes who live for vertical terrain.",
+        "primary_label": "Shop climbing",
+        "primary_link": "",
+        "secondary_label": "Shop all",
+        "secondary_link": "",
+        "meta_1": "Free shipping over $99",
+        "meta_2": "Designed for rock, trail & alpine",
+        "featured_collection": "",
+        "products_heading": "Featured gear",
+        "products_subheading": "Handpicked shoes and equipment ready for your next project.",
+        "products_limit": 4
+      }
     }
   },
   "order": [
     "main",
-    "featured_collection_rxCnBb"
+    "featured_collection_rxCnBb",
+    "altum_BgrXKW"
   ]
 }
