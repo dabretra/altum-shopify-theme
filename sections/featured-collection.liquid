@@ -17,29 +17,39 @@
     </div>
   </div>
 
-  {% if section.settings.collection %}
-    <div class="product-grid">
-      {% for product in section.settings.collection.products limit: section.settings.product_limit %}
-        <div class="product-card">
-          <a href="{{ product.url }}">
-            <div class="product-card__media">
-              {% if product.featured_image %}
-                <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}">
-              {% else %}
-                <div style="background:#eee; height:200px;"></div>
-              {% endif %}
-            </div>
+  {% if section.settings.collection != blank %}
+    {% assign coll_handle = section.settings.collection %}
+    {% assign coll = collections[coll_handle] %}
 
-            <div class="product-card__body">
-              <div class="product-card__title">{{ product.title }}</div>
-              <div class="product-card__price">
-                {{ product.price | money }}
+    {% if coll != nil and coll.products_count > 0 %}
+      <div class="product-grid">
+        {% for product in coll.products limit: section.settings.product_limit %}
+          <div class="product-card">
+            <a href="{{ product.url }}">
+              <div class="product-card__media">
+                {% if product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 600 }}"
+                    alt="{{ product.title | escape }}"
+                  >
+                {% else %}
+                  <div style="background:#eee; height:200px;"></div>
+                {% endif %}
               </div>
-            </div>
-          </a>
-        </div>
-      {% endfor %}
-    </div>
+
+              <div class="product-card__body">
+                <div class="product-card__title">{{ product.title }}</div>
+                <div class="product-card__price">
+                  {{ product.price | money }}
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No products found in this collection yet.</p>
+    {% endif %}
   {% else %}
     <p>No collection selected.</p>
   {% endif %}
