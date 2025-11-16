@@ -104,8 +104,8 @@
       "type": "featured-collection",
       "name": "Featured collection",
       "settings": {
-        "heading": "Collection",
-        "subheading": "A curated first lineup from ALTUM: trail-ready pants, portable solar power, and hand-poured Colorado candles.",
+        "heading": "Candles",
+        "subheading": "Hand-poured in Colorado. Clean-burning, mountain-inspired scents for after adventure.",
         "collection": "altum-merch",
         "product_limit": 6
       }
