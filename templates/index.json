@@ -1,9 +1,68 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "la-home",
-      "settings": {}
+      "type": "altum-landing",
+      "settings": {
+        "eyebrow": "Colorado gear & goods, refined",
+        "heading": "Explore the heights of adventure. Sink into the depths of comfort.",
+        "subheading": "ALTUM curates adventure-ready pants, off-grid solar power, and small-batch Colorado candles—so your time on the mountain and your time at home feel equally dialed in.",
+        "primary_label": "Shop Featured Gear",
+        "primary_link": "/collections/all",
+        "secondary_label": "Explore Colorado Candles",
+        "secondary_link": "/collections/candles",
+        "meta_1_strong": "Carbon-conscious",
+        "meta_1": "Trail-tested pants designed for long approaches and lazy rest days.",
+        "meta_2_strong": "Hand-selected",
+        "meta_2": "Portable solar so your devices stay charged from trailhead to campfire.",
+        "meta_3_strong": "Designed for",
+        "meta_3": "altitude & ocean depth",
+        "hero_badge": "Next departure: Patagonia Glacier Retreat",
+        "hero_badge_secondary": "Limited availability",
+        "hero_logo_title": "ALTUM",
+        "hero_logo_text": "Curated itineraries and tools for those who crave cliff-edge sunrises and fire-lit evenings in equal measure.",
+        "stat_1_label": "Guided Elevation",
+        "stat_1_value": "0–6,000m ready",
+        "stat_2_label": "Comfort Index",
+        "stat_2_value": "Hotel-grade sleep systems",
+        "stat_3_label": "Return Friendly",
+        "stat_3_value": "30-day gear trial",
+        "offers_heading": "Curated collections",
+        "offers_subheading": "Build your own blend of expedition and ease—from alpine ridgelines to ocean-front hideaways.",
+        "featured_collection": "",
+        "products_heading": "Featured gear",
+        "products_subheading": "A starter kit for adventurers who refuse to choose between performance and plush comfort.",
+        "products_limit": 4,
+        "story_heading": "Adventure that feels like a five-star stay.",
+        "story_text": "Every itinerary and piece of gear in the ALTUM collection is chosen to hold you in that sweet spot: breathless from the climb, restored by the cabin.",
+        "value_1_title": "Guided & independent",
+        "value_1_text": "Travel solo with our curated kits, or join small-group departures with expert guides.",
+        "value_2_title": "Comfort-first builds",
+        "value_2_text": "Ultralight designs that still feel like a boutique suite wherever you set camp.",
+        "value_3_title": "Earth-aware choices",
+        "value_3_text": "Partner lodges meet strict impact standards, and gear materials skew recycled and repairable.",
+        "testimonials_heading": "Field notes",
+        "testimonial_1_text": "“We went from crampons on blue ice to a cedar hot tub under the Milky Way in one day.”",
+        "testimonial_1_author": "— Maya R., Glacier Circuit guest",
+        "testimonial_2_text": "“The gear bundle took the guesswork out of packing. I slept better at 9,000 feet than I do at home.”",
+        "testimonial_2_author": "— Daniel L., Summit & Soak guest",
+        "newsletter_heading": "Stay ahead of the next altitude.",
+        "newsletter_text": "Be the first to know about limited-run departures, prototype gear drops, and secret-spot itineraries.",
+        "newsletter_placeholder": "Enter your email",
+        "newsletter_button": "Get the Altum Brief",
+        "newsletter_success": "Thanks for joining the Altum Brief."
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
