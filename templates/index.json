@@ -25,11 +25,11 @@
         "offering_card_haRhGj": {
           "type": "offering_card",
           "settings": {
-            "label": "Pants",
-            "title": "Trail & Climbing Pants",
-            "text": "Comfortable, durable pants built for long approaches, training days, and rest-day wandering.",
-            "cta_label": "Shop pants",
-            "cta_link": "/collections/pants"
+            "label": "Apparel",
+            "title": "Hoodies",
+            "text": "Core Fleece Pullover Hoodie",
+            "cta_label": "Shop Apparel",
+            "cta_link": "shopify://collections/apparel"
           }
         },
         "offering_card_HXyNM7": {
