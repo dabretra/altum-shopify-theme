@@ -1,0 +1,47 @@
+<section class="altum-container" style="padding: 2.5rem 1.25rem 3rem;">
+  <header style="margin-bottom:1.5rem;">
+    <p style="font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:#e1c89a;">
+      Collection
+    </p>
+    <h1 style="font-size:1.7rem;margin-top:0.2rem;">{{ collection.title }}</h1>
+    {% if collection.description != blank %}
+      <div style="font-size:0.9rem;color:#c0c7c5;margin-top:0.4rem;">
+        {{ collection.description }}
+      </div>
+    {% endif %}
+  </header>
+
+  {% if collection.products_count > 0 %}
+    <div style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.25rem;
+    ">
+      {% for product in collection.products %}
+        <article style="
+          background:#0d2629;
+          border-radius:1.2rem;
+          padding:0.9rem;
+          border:1px solid rgba(255,255,255,0.06);
+          box-shadow:0 12px 24px rgba(0,0,0,0.35);
+        ">
+          <a href="{{ product.url }}" style="display:block;border-radius:0.9rem;overflow:hidden;margin-bottom:0.6rem;">
+            {% if product.featured_media %}
+              {{ product.featured_media
+                | image_url: width: 600
+                | image_tag: loading: 'lazy', alt: product.title }}
+            {% endif %}
+          </a>
+          <a href="{{ product.url }}" style="font-size:0.95rem;display:block;margin-bottom:0.2rem;">
+            {{ product.title }}
+          </a>
+          <span style="font-size:0.9rem;color:#e1c89a;font-weight:600;">
+            {{ product.price | money }}
+          </span>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No products in this collection yet.</p>
+  {% endif %}
+</section>

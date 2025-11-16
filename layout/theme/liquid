@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      {{ page_title }}{% if current_tags %} – {{ current_tags | join: ', ' }}{% endif %}
+      {% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}
+    </title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    {{ content_for_header }}
+
+    <style>
+      :root {
+        --bg-dark: #02090c;
+        --bg-mid: #071920;
+        --bg-card: #0d2629;
+        --accent-gold: #cfa66a;
+        --accent-gold-soft: #e1c89a;
+        --accent-teal: #15788a;
+        --accent-teal-soft: #1f8ea6;
+        --accent-rust: #be6b3c;
+        --text-main: #f4f4f2;
+        --text-muted: #c0c7c5;
+        --border-subtle: rgba(255,255,255,0.06);
+        --radius-xl: 1.6rem;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, #102f39 0, #02090c 60%);
+        color: var(--text-main);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .page-wrap {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .altum-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(18px);
+        background: linear-gradient(to bottom, rgba(2,11,14,0.95), rgba(2,11,14,0.88));
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .altum-container {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 1.25rem;
+      }
+
+      .altum-header__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        padding: 0.8rem 0;
+      }
+
+      .altum-logo-row {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .altum-logo-row img {
+        height: 40px;
+        width: auto;
+        border-radius: 12px;
+      }
+
+      .altum-logo-row span {
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .altum-nav {
+        display: flex;
+        gap: 1.25rem;
+        font-size: 0.9rem;
+      }
+
+      .altum-nav a {
+        color: var(--text-muted);
+        position: relative;
+        padding-bottom: 0.1rem;
+      }
+
+      .altum-nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -0.18rem;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent-gold-soft), var(--accent-teal-soft));
+        transition: width 160ms ease-out;
+      }
+
+      .altum-nav a:hover {
+        color: var(--text-main);
+      }
+
+      .altum-nav a:hover::after {
+        width: 100%;
+      }
+
+      .altum-header__icons {
+        display: flex;
+        gap: 0.9rem;
+        align-items: center;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      main {
+        flex: 1;
+      }
+
+      footer.altum-footer {
+        margin-top: 2.5rem;
+        border-top: 1px solid var(--border-subtle);
+        background: rgba(3,10,12,0.96);
+        padding: 1.8rem 0 2.2rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      .altum-footer__top {
+        display: grid;
+        grid-template-columns: minmax(0,1.7fr) repeat(3,minmax(0,1fr));
+        gap: 1.8rem;
+      }
+
+      .altum-footer__heading {
+        font-size: 0.8rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 0.6rem;
+        color: var(--text-main);
+      }
+
+      .altum-footer__links {
+        display: grid;
+        gap: 0.3rem;
+      }
+
+      .altum-footer__links a:hover {
+        color: var(--accent-gold-soft);
+      }
+
+      .altum-footer__bottom {
+        margin-top: 1.4rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 880px) {
+        .altum-nav {
+          display: none;
+        }
+        .altum-footer__top {
+          grid-template-columns: minmax(0,1.6fr) minmax(0,1fr);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .altum-footer__top {
+          grid-template-columns: minmax(0,1fr);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-wrap">
+      <header class="altum-header">
+        <div class="altum-container altum-header__inner">
+          <a href="{{ routes.root_url }}" class="altum-logo-row">
+            {% if settings.header_logo != blank %}
+              <img src="{{ settings.header_logo | image_url: width: 160 }}"
+                   alt="{{ shop.name | escape }}">
+            {% endif %}
+            <span>Altum</span>
+          </a>
+
+          <nav class="altum-nav">
+            <a href="{{ routes.root_url }}">Home</a>
+            <a href="/collections/all">Catalog</a>
+            <a href="/pages/about">About</a>
+            <a href="/pages/contact">Contact</a>
+          </nav>
+
+          <div class="altum-header__icons">
+            <a href="{{ routes.search_url }}">Search</a>
+            <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+          </div>
+        </div>
+      </header>
+
+      <main role="main">
+        {{ content_for_layout }}
+      </main>
+
+      <footer class="altum-footer">
+        <div class="altum-container">
+          <div class="altum-footer__top">
+            <div>
+              <div class="altum-footer__heading">Altum</div>
+              <p>
+                Climbing-ready gear, ridge-line retreats and basecamp comforts
+                for people who want the summit <em>and</em> the soak.
+              </p>
+            </div>
+
+            <div>
+              <div class="altum-footer__heading">Shop</div>
+              <div class="altum-footer__links">
+                <a href="/collections/all">All products</a>
+                <a href="/collections/climbing">Climbing</a>
+                <a href="/collections/camping">Camping</a>
+              </div>
+            </div>
+
+            <div>
+              <div class="altum-footer__heading">Company</div>
+              <div class="altum-footer__links">
+                <a href="/pages/about">About</a>
+                <a href="/pages/journal">Journal</a>
+              </div>
+            </div>
+
+            <div>
+              <div class="altum-footer__heading">Support</div>
+              <div class="altum-footer__links">
+                <a href="/pages/contact">Contact</a>
+                <a href="/policies/refund-policy">Returns</a>
+                <a href="/policies/shipping-policy">Shipping</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="altum-footer__bottom">
+            <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</span>
+            <div class="altum-footer__links">
+              <a href="/policies/privacy-policy">Privacy</a> ·
+              <a href="/policies/terms-of-service">Terms</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

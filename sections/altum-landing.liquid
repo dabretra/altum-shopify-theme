@@ -1,0 +1,1088 @@
+{% comment %}
+  ALTUM Landing Page Section
+  - Hero area with logo + tagline
+  - Cards for key offerings
+  - Featured collection products (selectable in editor)
+  - Brand story + values
+  - Testimonials + email capture
+
+  Add via: Online Store → Customize → Add section → Altum Landing Page
+{% endcomment %}
+
+<section class="altum-landing">
+  <div class="altum-container">
+
+    {%- comment -%} HERO {%- endcomment -%}
+    <div class="altum-hero">
+      <div class="altum-hero__left">
+        {% if section.settings.eyebrow != blank %}
+          <p class="altum-eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+
+        <h1 class="altum-hero__title">
+          {{ section.settings.heading | escape }}
+        </h1>
+
+        {% if section.settings.subheading != blank %}
+          <p class="altum-hero__subtitle">
+            {{ section.settings.subheading }}
+          </p>
+        {% endif %}
+
+        <div class="altum-hero__actions">
+          {% if section.settings.primary_label != blank %}
+            <a href="{{ section.settings.primary_link }}" class="altum-btn altum-btn--primary">
+              {{ section.settings.primary_label }}
+            </a>
+          {% endif %}
+          {% if section.settings.secondary_label != blank %}
+            <a href="{{ section.settings.secondary_link }}" class="altum-btn altum-btn--outline">
+              {{ section.settings.secondary_label }}
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="altum-hero__meta">
+          {% if section.settings.meta_1 != blank %}
+            <span><strong>{{ section.settings.meta_1_strong }}</strong> {{ section.settings.meta_1 }}</span>
+          {% endif %}
+          {% if section.settings.meta_2 != blank %}
+            <span><strong>{{ section.settings.meta_2_strong }}</strong> {{ section.settings.meta_2 }}</span>
+          {% endif %}
+          {% if section.settings.meta_3 != blank %}
+            <span><strong>{{ section.settings.meta_3_strong }}</strong> {{ section.settings.meta_3 }}</span>
+          {% endif %}
+        </div>
+      </div>
+
+      <aside class="altum-hero-card">
+        <div class="altum-hero-card__inner">
+          <div class="altum-hero-card__top">
+            {% if section.settings.hero_badge != blank %}
+              <div class="altum-pill">
+                {{ section.settings.hero_badge }}
+              </div>
+            {% endif %}
+            {% if section.settings.hero_badge_secondary != blank %}
+              <div class="altum-pill">
+                {{ section.settings.hero_badge_secondary }}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="altum-hero-card__logo-row">
+            {% if section.settings.logo != blank %}
+              <div class="altum-hero-card__logo">
+                <img
+                  src="{{ section.settings.logo | image_url: width: 300 }}"
+                  alt="{{ section.settings.logo.alt | default: shop.name }}"
+                  loading="lazy"
+                >
+              </div>
+            {% endif %}
+            <div class="altum-hero-card__copy">
+              <h2 class="altum-hero-card__title">
+                {{ section.settings.hero_logo_title | escape }}
+              </h2>
+              <p class="altum-hero-card__text">
+                {{ section.settings.hero_logo_text }}
+              </p>
+            </div>
+          </div>
+
+          <div class="altum-hero-card__stats">
+            {% if section.settings.stat_1_label != blank %}
+              <div class="altum-hero-stat">
+                <div>{{ section.settings.stat_1_label }}</div>
+                <div>{{ section.settings.stat_1_value }}</div>
+              </div>
+            {% endif %}
+            {% if section.settings.stat_2_label != blank %}
+              <div class="altum-hero-stat">
+                <div>{{ section.settings.stat_2_label }}</div>
+                <div>{{ section.settings.stat_2_value }}</div>
+              </div>
+            {% endif %}
+            {% if section.settings.stat_3_label != blank %}
+              <div class="altum-hero-stat">
+                <div>{{ section.settings.stat_3_label }}</div>
+                <div>{{ section.settings.stat_3_value }}</div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    {%- comment -%} COLLECTION / OFFERING CARDS {%- endcomment -%}
+    <div class="altum-section">
+      <div class="altum-section__header">
+        <h2 class="altum-section__title">{{ section.settings.offers_heading }}</h2>
+        <p class="altum-section__subtitle">
+          {{ section.settings.offers_subheading }}
+        </p>
+      </div>
+
+      <div class="altum-offer-grid">
+        {% for block in section.blocks %}
+          {% if block.type == 'offering_card' %}
+            <article class="altum-offer-card" {{ block.shopify_attributes }}>
+              {% if block.settings.label != blank %}
+                <p class="altum-offer-card__label">{{ block.settings.label }}</p>
+              {% endif %}
+              <h3 class="altum-offer-card__title">{{ block.settings.title }}</h3>
+              <p class="altum-offer-card__text">{{ block.settings.text }}</p>
+              {% if block.settings.cta_label != blank %}
+                <span class="altum-offer-card__pill">
+                  {{ block.settings.cta_label }}
+                  {% if block.settings.cta_link != blank %}→{% endif %}
+                </span>
+              {% endif %}
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {%- comment -%} FEATURED COLLECTION PRODUCTS {%- endcomment -%}
+    {% if section.settings.featured_collection != blank %}
+      {% assign altum_collection = collections[section.settings.featured_collection] %}
+      {% if altum_collection != nil and altum_collection.products_count > 0 %}
+        <div class="altum-section altum-section--products">
+          <div class="altum-section__header">
+            <h2 class="altum-section__title">{{ section.settings.products_heading }}</h2>
+            <p class="altum-section__subtitle">
+              {{ section.settings.products_subheading }}
+            </p>
+          </div>
+
+          <div class="altum-product-grid">
+            {% for product in altum_collection.products limit: section.settings.products_limit %}
+              <article class="altum-product-card">
+                <a href="{{ product.url }}" class="altum-product-card__image">
+                  {% if product.featured_media %}
+                    {{ product.featured_media
+                      | image_url: width: 600
+                      | image_tag: loading: 'lazy', alt: product.title
+                    }}
+                  {% endif %}
+                </a>
+                <div class="altum-product-card__body">
+                  <a href="{{ product.url }}" class="altum-product-card__title">
+                    {{ product.title }}
+                  </a>
+                  <div class="altum-product-card__meta">
+                    <span class="altum-price">
+                      {{ product.price | money }}
+                    </span>
+                    {% if product.compare_at_price > product.price %}
+                      <span class="altum-price--compare">
+                        {{ product.compare_at_price | money }}
+                      </span>
+                    {% endif %}
+                  </div>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {%- comment -%} BRAND STORY + VALUES {%- endcomment -%}
+    <div class="altum-section altum-section--highlight">
+      <div class="altum-highlight">
+        <div class="altum-highlight__copy">
+          <h2>{{ section.settings.story_heading }}</h2>
+          <p>{{ section.settings.story_text }}</p>
+        </div>
+        <div class="altum-highlight__values">
+          {% if section.settings.value_1_title != blank %}
+            <div class="altum-value">
+              <strong>{{ section.settings.value_1_title }}</strong>
+              <p>{{ section.settings.value_1_text }}</p>
+            </div>
+          {% endif %}
+          {% if section.settings.value_2_title != blank %}
+            <div class="altum-value">
+              <strong>{{ section.settings.value_2_title }}</strong>
+              <p>{{ section.settings.value_2_text }}</p>
+            </div>
+          {% endif %}
+          {% if section.settings.value_3_title != blank %}
+            <div class="altum-value">
+              <strong>{{ section.settings.value_3_title }}</strong>
+              <p>{{ section.settings.value_3_text }}</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} TESTIMONIALS + NEWSLETTER {%- endcomment -%}
+    <div class="altum-section altum-section--two-column">
+      <div>
+        <div class="altum-section__header">
+          <h2 class="altum-section__title">{{ section.settings.testimonials_heading }}</h2>
+        </div>
+        <div class="altum-testimonial-list">
+          {% if section.settings.testimonial_1_text != blank %}
+            <article class="altum-testimonial">
+              <p>{{ section.settings.testimonial_1_text }}</p>
+              <span>{{ section.settings.testimonial_1_author }}</span>
+            </article>
+          {% endif %}
+          {% if section.settings.testimonial_2_text != blank %}
+            <article class="altum-testimonial">
+              <p>{{ section.settings.testimonial_2_text }}</p>
+              <span>{{ section.settings.testimonial_2_author }}</span>
+            </article>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="altum-newsletter">
+        <h3>{{ section.settings.newsletter_heading }}</h3>
+        <p>{{ section.settings.newsletter_text }}</p>
+
+        {%- form 'customer', id: 'altum-newsletter' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="altum-newsletter__form">
+            <input
+              type="email"
+              name="contact[email]"
+              required
+              placeholder="{{ section.settings.newsletter_placeholder }}"
+            >
+            <button type="submit" class="altum-btn altum-btn--primary">
+              {{ section.settings.newsletter_button }}
+            </button>
+          </div>
+          {% if form.posted_successfully? %}
+            <p class="altum-newsletter__message">
+              {{ section.settings.newsletter_success }}
+            </p>
+          {% endif %}
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Scope everything to this section */
+    #shopify-section-{{ section.id }} .altum-landing {
+      padding: 3rem 0 3.5rem;
+      background:
+        {% if section.settings.background_image != blank %}
+          url("{{ section.settings.background_image | image_url: width: 2400 }}") center/cover no-repeat,
+        {% endif %}
+        radial-gradient(circle at top, #123534 0, #020808 55%);
+      color: #f4f4f2;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    #shopify-section-{{ section.id }} .altum-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Buttons */
+    #shopify-section-{{ section.id }} .altum-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0.55rem 1.3rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+      transition: 160ms ease-out;
+      white-space: nowrap;
+    }
+
+    #shopify-section-{{ section.id }} .altum-btn--primary {
+      background-image: linear-gradient(135deg, #cfa66a, #1f8ea6);
+      color: #050909;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.45);
+    }
+    #shopify-section-{{ section.id }} .altum-btn--primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 30px rgba(0,0,0,0.6);
+      filter: brightness(1.05);
+    }
+    #shopify-section-{{ section.id }} .altum-btn--outline {
+      border-color: rgba(255,255,255,0.18);
+      color: #c0c7c5;
+      background: rgba(0,0,0,0.35);
+    }
+    #shopify-section-{{ section.id }} .altum-btn--outline:hover {
+      border-color: #e1c89a;
+      color: #e1c89a;
+    }
+
+    /* Hero layout */
+    #shopify-section-{{ section.id }} .altum-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 3rem;
+      align-items: center;
+      margin-bottom: 2.6rem;
+    }
+    #shopify-section-{{ section.id }} .altum-eyebrow {
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #e1c89a;
+      margin-bottom: 0.75rem;
+    }
+    #shopify-section-{{ section.id }} .altum-hero__title {
+      font-size: clamp(2.2rem, 3vw, 2.8rem);
+      line-height: 1.05;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    #shopify-section-{{ section.id }} .altum-hero__subtitle {
+      font-size: 0.98rem;
+      color: #c0c7c5;
+      max-width: 28rem;
+      margin-bottom: 1.5rem;
+    }
+    #shopify-section-{{ section.id }} .altum-hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    #shopify-section-{{ section.id }} .altum-hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      font-size: 0.82rem;
+      color: #c0c7c5;
+    }
+    #shopify-section-{{ section.id }} .altum-hero__meta strong {
+      color: #e1c89a;
+      font-weight: 500;
+    }
+
+    /* Hero card */
+    #shopify-section-{{ section.id }} .altum-hero-card {
+      background: radial-gradient(circle at top left, rgba(37, 116, 126, 0.5), rgba(2, 11, 9, 0.9));
+      border-radius: 1.75rem;
+      padding: 1.8rem 1.6rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    #shopify-section-{{ section.id }} .altum-hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background-image:
+        radial-gradient(circle at 10% 0, rgba(228,196,120,0.08) 0, transparent 40%),
+        radial-gradient(circle at 90% 100%, rgba(27,154,177,0.18) 0, transparent 55%);
+    }
+    #shopify-section-{{ section.id }} .altum-hero-card__inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 1.5rem;
+    }
+    #shopify-section-{{ section.id }} .altum-hero-card__top {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+    }
+    #shopify-section-{{ section.id }} .altum-pill {
+      padding: 0.25rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #c0c7c5;
+    }
+    #shopify-section-{{ section.id }} .altum-hero-card__logo-row {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+    }
+    #shopify-section-{{ section.id }} .altum-hero-card__logo img {
+      height: 70px;
+      width: auto;
+      border-radius: 22px;
+      box-shadow: 0 12px 26px rgba(0,0,0,0.6);
+    }
+    #shopify-section-{{ section.id }} .altum-hero-card__title {
+      font-size: 1.15rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+      color: #e1c89a;
+    }
+    #shopify-section-{{ section.id }} .altum-hero-card__text {
+      font-size: 0.88rem;
+      color: #c0c7c5;
+    }
+    #shopify-section-{{ section.id }} .altum-hero-card__stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 1rem;
+      font-size: 0.8rem;
+    }
+    #shopify-section-{{ section.id }} .altum-hero-stat {
+      padding: 0.7rem 0.8rem;
+      border-radius: 1rem;
+      background: rgba(0,0,0,0.36);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    #shopify-section-{{ section.id }} .altum-hero-stat div:first-child {
+      font-size: 0.74rem;
+      color: #c0c7c5;
+      margin-bottom: 0.2rem;
+    }
+    #shopify-section-{{ section.id }} .altum-hero-stat div:last-child {
+      color: #e1c89a;
+      font-weight: 500;
+    }
+
+    /* Generic sections */
+    #shopify-section-{{ section.id }} .altum-section {
+      padding: 2.4rem 0 0;
+    }
+    #shopify-section-{{ section.id }} .altum-section__header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      align-items: baseline;
+      margin-bottom: 1.6rem;
+    }
+    #shopify-section-{{ section.id }} .altum-section__title {
+      font-size: 1.05rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    #shopify-section-{{ section.id }} .altum-section__subtitle {
+      font-size: 0.9rem;
+      color: #c0c7c5;
+      max-width: 26rem;
+    }
+
+    /* Offer cards */
+    #shopify-section-{{ section.id }} .altum-offer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.3rem;
+    }
+    #shopify-section-{{ section.id }} .altum-offer-card {
+      position: relative;
+      border-radius: 1.75rem;
+      padding: 1.4rem 1.5rem;
+      background: radial-gradient(circle at top left, #1a3b40, #021010);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 16px 30px rgba(0,0,0,0.45);
+    }
+    #shopify-section-{{ section.id }} .altum-offer-card__label {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #e1c89a;
+      margin-bottom: 0.35rem;
+    }
+    #shopify-section-{{ section.id }} .altum-offer-card__title {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+    #shopify-section-{{ section.id }} .altum-offer-card__text {
+      font-size: 0.86rem;
+      color: #c0c7c5;
+      max-width: 18rem;
+    }
+    #shopify-section-{{ section.id }} .altum-offer-card__pill {
+      display: inline-block;
+      margin-top: 0.9rem;
+      font-size: 0.78rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.3);
+      color: #c0c7c5;
+    }
+
+    /* Products */
+    #shopify-section-{{ section.id }} .altum-section--products {
+      margin-top: 1.3rem;
+    }
+    #shopify-section-{{ section.id }} .altum-product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.25rem;
+    }
+    #shopify-section-{{ section.id }} .altum-product-card {
+      background: #0e2624;
+      border-radius: 1.2rem;
+      padding: 0.95rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: 160ms ease-out;
+    }
+    #shopify-section-{{ section.id }} .altum-product-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(207,166,106,0.7);
+      box-shadow: 0 18px 32px rgba(0,0,0,0.5);
+    }
+    #shopify-section-{{ section.id }} .altum-product-card__image {
+      border-radius: 0.9rem;
+      overflow: hidden;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    #shopify-section-{{ section.id }} .altum-product-card__title {
+      font-size: 0.95rem;
+      text-decoration: none;
+      color: #f4f4f2;
+    }
+    #shopify-section-{{ section.id }} .altum-product-card__title:hover {
+      text-decoration: underline;
+    }
+    #shopify-section-{{ section.id }} .altum-product-card__meta {
+      display: flex;
+      gap: 0.5rem;
+      align-items: baseline;
+      font-size: 0.85rem;
+      color: #c0c7c5;
+    }
+    #shopify-section-{{ section.id }} .altum-price {
+      color: #e1c89a;
+      font-weight: 600;
+    }
+    #shopify-section-{{ section.id }} .altum-price--compare {
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+
+    /* Highlight */
+    #shopify-section-{{ section.id }} .altum-section--highlight {
+      margin-top: 1.4rem;
+    }
+    #shopify-section-{{ section.id }} .altum-highlight {
+      background: radial-gradient(circle at top left, rgba(228,196,120,0.08), rgba(2,11,10,0.98));
+      border-radius: 1.75rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 1.8rem 1.6rem;
+      display: grid;
+      grid-template-columns: minmax(0,1.4fr) minmax(0,1.1fr);
+      gap: 1.8rem;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+    }
+    #shopify-section-{{ section.id }} .altum-highlight h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    #shopify-section-{{ section.id }} .altum-highlight p {
+      font-size: 0.9rem;
+      color: #c0c7c5;
+    }
+    #shopify-section-{{ section.id }} .altum-highlight__values {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      font-size: 0.86rem;
+    }
+    #shopify-section-{{ section.id }} .altum-value {
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.35);
+      padding: 0.9rem 0.95rem;
+    }
+    #shopify-section-{{ section.id }} .altum-value strong {
+      display: block;
+      margin-bottom: 0.2rem;
+      color: #e1c89a;
+      font-size: 0.83rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    /* Testimonials + newsletter */
+    #shopify-section-{{ section.id }} .altum-section--two-column {
+      margin-top: 2.2rem;
+      display: grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,1fr);
+      gap: 2rem;
+    }
+    #shopify-section-{{ section.id }} .altum-testimonial-list {
+      display: grid;
+      gap: 1rem;
+      font-size: 0.88rem;
+    }
+    #shopify-section-{{ section.id }} .altum-testimonial {
+      background: #0e2624;
+      border-radius: 1.1rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 0.9rem 1rem;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.35);
+    }
+    #shopify-section-{{ section.id }} .altum-testimonial p {
+      color: #c0c7c5;
+      margin-bottom: 0.35rem;
+    }
+    #shopify-section-{{ section.id }} .altum-testimonial span {
+      font-size: 0.78rem;
+      color: #e1c89a;
+    }
+    #shopify-section-{{ section.id }} .altum-newsletter {
+      background: radial-gradient(circle at top, rgba(31,142,166,0.4), rgba(2,10,10,0.98));
+      border-radius: 1.3rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 1.4rem 1.3rem 1.6rem;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.45);
+      font-size: 0.88rem;
+    }
+    #shopify-section-{{ section.id }} .altum-newsletter h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.35rem;
+    }
+    #shopify-section-{{ section.id }} .altum-newsletter p {
+      color: #c0c7c5;
+      margin-bottom: 0.9rem;
+    }
+    #shopify-section-{{ section.id }} .altum-newsletter__form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+    #shopify-section-{{ section.id }} .altum-newsletter input[type="email"] {
+      flex: 1 1 180px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(1,6,6,0.9);
+      padding: 0.55rem 0.9rem;
+      color: #f4f4f2;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    #shopify-section-{{ section.id }} .altum-newsletter input::placeholder {
+      color: rgba(199,212,210,0.7);
+    }
+    #shopify-section-{{ section.id }} .altum-newsletter__message {
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+      color: #e1c89a;
+    }
+
+    /* Responsive */
+    @media (max-width: 880px) {
+      #shopify-section-{{ section.id }} .altum-hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      #shopify-section-{{ section.id }} .altum-highlight {
+        grid-template-columns: minmax(0,1fr);
+      }
+      #shopify-section-{{ section.id }} .altum-section--two-column {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      #shopify-section-{{ section.id }} .altum-landing {
+        padding-top: 2.3rem;
+      }
+      #shopify-section-{{ section.id }} .altum-hero-card {
+        margin-top: 1.3rem;
+      }
+      #shopify-section-{{ section.id }} .altum-hero-card__stats {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+    }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Altum Landing Page",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image",
+      "info": "Optional. A subtle texture or landscape behind the section."
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Altum logo",
+      "info": "Upload your Altum logo (e.g., ALTUM header image)."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow / label",
+      "default": "Luxury adventure, refined"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "Explore the heights of adventure. Sink into the depths of comfort."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "ALTUM curates elevated adventure gear and immersive travel experiences—where rugged summits meet hot-spring nights and star-lit cabins."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Discover featured gear"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "View adventure itineraries"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "text",
+      "id": "meta_1_strong",
+      "label": "Meta item 1 strong text",
+      "default": "Carbon-conscious"
+    },
+    {
+      "type": "text",
+      "id": "meta_1",
+      "label": "Meta item 1 text",
+      "default": "partners & eco-lodges"
+    },
+    {
+      "type": "text",
+      "id": "meta_2_strong",
+      "label": "Meta item 2 strong text",
+      "default": "Hand-selected"
+    },
+    {
+      "type": "text",
+      "id": "meta_2",
+      "label": "Meta item 2 text",
+      "default": "premium materials"
+    },
+    {
+      "type": "text",
+      "id": "meta_3_strong",
+      "label": "Meta item 3 strong text",
+      "default": "Designed for"
+    },
+    {
+      "type": "text",
+      "id": "meta_3",
+      "label": "Meta item 3 text",
+      "default": "altitude & ocean depth"
+    },
+    {
+      "type": "text",
+      "id": "hero_badge",
+      "label": "Hero badge",
+      "default": "Next departure: Patagonia Glacier Retreat"
+    },
+    {
+      "type": "text",
+      "id": "hero_badge_secondary",
+      "label": "Hero badge secondary",
+      "default": "Limited availability"
+    },
+    {
+      "type": "text",
+      "id": "hero_logo_title",
+      "label": "Hero card title",
+      "default": "ALTUM"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_logo_text",
+      "label": "Hero card text",
+      "default": "Curated itineraries and tools for those who crave cliff-edge sunrises and fire-lit evenings in equal measure."
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 label",
+      "default": "Guided Elevation"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_value",
+      "label": "Stat 1 value",
+      "default": "0–6,000m ready"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 label",
+      "default": "Comfort Index"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_value",
+      "label": "Stat 2 value",
+      "default": "Hotel-grade sleep systems"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Stat 3 label",
+      "default": "Return Friendly"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_value",
+      "label": "Stat 3 value",
+      "default": "30-day gear trial"
+    },
+
+    /* Offering cards */
+    {
+      "type": "text",
+      "id": "offers_heading",
+      "label": "Offer section heading",
+      "default": "Curated collections"
+    },
+    {
+      "type": "textarea",
+      "id": "offers_subheading",
+      "label": "Offer section subheading",
+      "default": "Build your own blend of expedition and ease—from alpine ridgelines to ocean-front hideaways."
+    },
+
+    /* Featured products */
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "Featured collection"
+    },
+    {
+      "type": "text",
+      "id": "products_heading",
+      "label": "Products heading",
+      "default": "Featured gear"
+    },
+    {
+      "type": "textarea",
+      "id": "products_subheading",
+      "label": "Products subheading",
+      "default": "A starter kit for adventurers who refuse to choose between performance and plush comfort."
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Number of products to show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+
+    /* Story */
+    {
+      "type": "text",
+      "id": "story_heading",
+      "label": "Story heading",
+      "default": "Adventure that feels like a five-star stay."
+    },
+    {
+      "type": "textarea",
+      "id": "story_text",
+      "label": "Story text",
+      "default": "Every itinerary and piece of gear in the ALTUM collection is chosen to hold you in that sweet spot: breathless from the climb, restored by the cabin."
+    },
+    {
+      "type": "text",
+      "id": "value_1_title",
+      "label": "Value 1 title",
+      "default": "Guided & independent"
+    },
+    {
+      "type": "textarea",
+      "id": "value_1_text",
+      "label": "Value 1 text",
+      "default": "Travel solo with our curated kits, or join small-group departures with expert guides."
+    },
+    {
+      "type": "text",
+      "id": "value_2_title",
+      "label": "Value 2 title",
+      "default": "Comfort-first builds"
+    },
+    {
+      "type": "textarea",
+      "id": "value_2_text",
+      "label": "Value 2 text",
+      "default": "Ultralight designs that still feel like a boutique suite wherever you set camp."
+    },
+    {
+      "type": "text",
+      "id": "value_3_title",
+      "label": "Value 3 title",
+      "default": "Earth-aware choices"
+    },
+    {
+      "type": "textarea",
+      "id": "value_3_text",
+      "label": "Value 3 text",
+      "default": "Partner lodges meet strict impact standards, and gear materials skew recycled and repairable."
+    },
+
+    /* Testimonials */
+    {
+      "type": "text",
+      "id": "testimonials_heading",
+      "label": "Testimonials heading",
+      "default": "Field notes"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_1_text",
+      "label": "Testimonial 1 text",
+      "default": "“We went from crampons on blue ice to a cedar hot tub under the Milky Way in one day.”"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_1_author",
+      "label": "Testimonial 1 author",
+      "default": "— Maya R., Glacier Circuit guest"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_2_text",
+      "label": "Testimonial 2 text",
+      "default": "“The gear bundle took the guesswork out of packing. I slept better at 9,000 feet than I do at home.”"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_2_author",
+      "label": "Testimonial 2 author",
+      "default": "— Daniel L., Summit & Soak guest"
+    },
+
+    /* Newsletter */
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading",
+      "default": "Stay ahead of the next altitude."
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Newsletter text",
+      "default": "Be the first to know about limited-run departures, prototype gear drops, and secret-spot itineraries."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Newsletter email placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button",
+      "label": "Newsletter button text",
+      "default": "Get the Altum Brief"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_success",
+      "label": "Newsletter success message",
+      "default": "Thanks for joining the Altum Brief."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "offering_card",
+      "name": "Offering card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Signature series"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Summit & Soak Escapes"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Multi-day guided hikes ending in private hot-spring stays, chef-prepared dinners, and cabin-level comfort."
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "Pill label",
+          "default": "View itineraries"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "Optional link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Altum Landing Page",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "offering_card",
+          "settings": {
+            "label": "Signature series",
+            "title": "Summit & Soak Escapes",
+            "text": "Luxurious adventure tours with guided days and hot-spring nights.",
+            "cta_label": "View itineraries"
+          }
+        },
+        {
+          "type": "offering_card",
+          "settings": {
+            "label": "Gear capsule",
+            "title": "Elevated Essentials",
+            "text": "Lightweight, high-performance gear that balances ruggedness and comfort.",
+            "cta_label": "Shop adventure gear"
+          }
+        },
+        {
+          "type": "offering_card",
+          "settings": {
+            "label": "Wellness & depth",
+            "title": "Ocean & Breath Retreats",
+            "text": "Freediving and yoga paired with design-forward waterfront villas.",
+            "cta_label": "Explore coastal stays"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

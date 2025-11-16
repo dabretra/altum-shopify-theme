@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "header_logo",
+        "label": "Header logo"
+      }
+    ]
+  }
+]
