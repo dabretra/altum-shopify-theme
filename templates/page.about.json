@@ -1,0 +1,34 @@
+{
+  "name": "About Altum",
+  "sections": {
+    "main": {
+      "type": "altum-about",
+      "settings": {
+        "eyebrow": "Meet the people behind ALTUM",
+        "heading": "About Altum",
+        "lead": "ALTUM was born in Colorado, where long approaches, bluebird days, and star-lit nights are part of the weekly rhythm. We build and curate products for that lifestyle—gear that holds up on the trail, power that keeps you connected off-grid, and candles that bring the feeling of the mountains home with you.",
+
+        "owner1_name": "Killian",
+        "owner1_role": "Co-Founder",
+        "owner1_bio": "Killian grew up in New Jersey but traded the coast for Colorado’s high country. What started as “one trip out west” turned into a permanent move fueled by climbing, hiking, and snow-covered peaks. At ALTUM, he obsesses over the details that make gear feel just right—how pants move, how solar packs down, and how a candle’s scent can instantly bring you back to a favorite campsite.",
+
+        "owner2_name": "Dan",
+        "owner2_role": "Co-Founder",
+        "owner2_bio": "Dan is originally from Minnesota and moved to Colorado in 2016 for the mountains and the wide-open spaces he’d always dreamed about. When he’s not climbing or exploring new trails, he’s testing gear and crafting small-batch soy candles in the ALTUM studio—blending scents like Black Rose + Oud to capture the feeling of Colorado nights.",
+
+        "collection_heading": "ALTUM at a glance",
+        "collection_intro": "Founded in Colorado by two climbers & mountain people. Built around the balance of adventure + comfort. Focused on gear, solar, and candles that earn their place in your kit. Inspired by trail days, hot springs nights, and cabin mornings.",
+        "collection_item1_title": "Adventure pants",
+        "collection_item1_body": "Pants that move with you from crag to coffee shop—built for long approaches, training days, and travel days.",
+        "collection_item2_title": "Portable solar panels",
+        "collection_item2_body": "Foldable, packable solar for charging phones, lights, and essentials wherever you camp, climb, or roam.",
+        "collection_item3_title": "Colorado-made candles",
+        "collection_item3_body": "Small-batch soy candles that turn your home into basecamp—starting with our Black Rose + Oud signature scent.",
+
+        "story_heading": "Why we started ALTUM",
+        "story_body": "We wanted gear and goods that felt as intentional as the days we spend outside: pants that move with you, solar that keeps the essentials powered, and candles that turn your home into basecamp. ALTUM is our way of blending those worlds—the heights of adventure and the depths of comfort."
+      }
+    }
+  },
+  "order": ["main"]
+}

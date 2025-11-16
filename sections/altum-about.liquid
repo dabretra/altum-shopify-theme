@@ -1,11 +1,12 @@
 <section class="about-altum">
   <div class="about-altum__inner">
-    <div class="about-altum__intro">
+
+    <header class="about-altum__header">
       {% if section.settings.eyebrow != blank %}
         <p class="about-altum__eyebrow">{{ section.settings.eyebrow }}</p>
       {% endif %}
 
-      <h1 class="about-altum__heading">
+      <h1 class="about-altum__title">
         {{ section.settings.heading }}
       </h1>
 
@@ -14,32 +15,58 @@
           {{ section.settings.lead }}
         </p>
       {% endif %}
-    </div>
+    </header>
 
-    <div class="about-altum__grid">
-      <div class="about-altum__card">
+    <div class="about-altum__founders">
+      <article class="about-altum__card">
         <h2 class="about-altum__card-name">{{ section.settings.owner1_name }}</h2>
         <p class="about-altum__card-role">{{ section.settings.owner1_role }}</p>
-        <p>{{ section.settings.owner1_bio }}</p>
-      </div>
+        <p class="about-altum__card-body">{{ section.settings.owner1_bio }}</p>
+      </article>
 
-      <div class="about-altum__card">
+      <article class="about-altum__card">
         <h2 class="about-altum__card-name">{{ section.settings.owner2_name }}</h2>
         <p class="about-altum__card-role">{{ section.settings.owner2_role }}</p>
-        <p>{{ section.settings.owner2_bio }}</p>
-      </div>
+        <p class="about-altum__card-body">{{ section.settings.owner2_bio }}</p>
+      </article>
     </div>
 
-    <div class="about-altum__bottom">
-      <h3 class="about-altum__bottom-heading">
-        {{ section.settings.bottom_heading }}
+    <section class="about-altum__collection">
+      <h3 class="about-altum__collection-heading">
+        {{ section.settings.collection_heading }}
       </h3>
-      <p class="about-altum__bottom-copy">
-        {{ section.settings.bottom_copy }}
+      <p class="about-altum__collection-intro">
+        {{ section.settings.collection_intro }}
       </p>
-    </div>
+
+      <div class="about-altum__collection-grid">
+        <div class="about-altum__collection-card">
+          <h4>{{ section.settings.collection_item1_title }}</h4>
+          <p>{{ section.settings.collection_item1_body }}</p>
+        </div>
+        <div class="about-altum__collection-card">
+          <h4>{{ section.settings.collection_item2_title }}</h4>
+          <p>{{ section.settings.collection_item2_body }}</p>
+        </div>
+        <div class="about-altum__collection-card">
+          <h4>{{ section.settings.collection_item3_title }}</h4>
+          <p>{{ section.settings.collection_item3_body }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-altum__story">
+      <h3 class="about-altum__story-heading">
+        {{ section.settings.story_heading }}
+      </h3>
+      <p class="about-altum__story-body">
+        {{ section.settings.story_body }}
+      </p>
+    </section>
+
   </div>
 </section>
+
 
 {% schema %}
 {
@@ -61,8 +88,9 @@
       "type": "textarea",
       "id": "lead",
       "label": "Intro text",
-      "default": "ALTUM was born in Colorado, where long approaches, bluebird days, and star-lit nights shape the way we design products. We build gear and candles for people who chase the heights of adventure and still care deeply about comfort back home."
+      "default": "ALTUM was born in Colorado, where long approaches, bluebird days, and star-lit nights are part of the weekly rhythm. We build and curate products for that lifestyle—gear that holds up on the trail, power that keeps you connected off-grid, and candles that bring the feeling of the mountains home with you."
     },
+
     {
       "type": "text",
       "id": "owner1_name",
@@ -81,6 +109,7 @@
       "label": "Owner 1 bio",
       "default": "Killian grew up in New Jersey but traded the coast for Colorado’s high country. He moved west for the adventure, the mountains, and the long days that end with even bigger views. At ALTUM, he obsesses over the details that make gear feel just right—how pants move, how solar packs down, and how a candle’s scent can instantly bring you back to a favorite campsite."
     },
+
     {
       "type": "text",
       "id": "owner2_name",
@@ -99,16 +128,66 @@
       "label": "Owner 2 bio",
       "default": "Dan is originally from Minnesota and moved to Colorado in 2016 for the mountains and the wide-open spaces he’d always dreamed about. When he’s not climbing or exploring new trails, he’s testing gear and crafting small-batch soy candles in the ALTUM studio—blending scents like Black Rose + Oud to capture the feeling of Colorado nights."
     },
+
     {
       "type": "text",
-      "id": "bottom_heading",
-      "label": "Bottom heading",
+      "id": "collection_heading",
+      "label": "Collection heading",
+      "default": "Our first collection is simple on purpose"
+    },
+    {
+      "type": "textarea",
+      "id": "collection_intro",
+      "label": "Collection intro",
+      "default": "We started with the pieces we rely on most: what we wear, how we charge, and how we reset at home after long days outside."
+    },
+    {
+      "type": "text",
+      "id": "collection_item1_title",
+      "label": "Collection item 1 title",
+      "default": "Adventure pants"
+    },
+    {
+      "type": "textarea",
+      "id": "collection_item1_body",
+      "label": "Collection item 1 body",
+      "default": "Pants that move with you from crag to coffee shop—built for long approaches, training days, and travel days."
+    },
+    {
+      "type": "text",
+      "id": "collection_item2_title",
+      "label": "Collection item 2 title",
+      "default": "Portable solar panels"
+    },
+    {
+      "type": "textarea",
+      "id": "collection_item2_body",
+      "label": "Collection item 2 body",
+      "default": "Foldable, packable solar for charging phones, lights, and essentials wherever you camp, climb, or roam."
+    },
+    {
+      "type": "text",
+      "id": "collection_item3_title",
+      "label": "Collection item 3 title",
+      "default": "Colorado-made candles"
+    },
+    {
+      "type": "textarea",
+      "id": "collection_item3_body",
+      "label": "Collection item 3 body",
+      "default": "Small-batch soy candles that turn your home into basecamp—starting with our Black Rose + Oud signature scent."
+    },
+
+    {
+      "type": "text",
+      "id": "story_heading",
+      "label": "Story heading",
       "default": "Why we started ALTUM"
     },
     {
       "type": "textarea",
-      "id": "bottom_copy",
-      "label": "Bottom copy",
+      "id": "story_body",
+      "label": "Story body",
       "default": "We wanted gear and goods that felt as intentional as the days we spend outside: pants that move with you, solar that keeps the essentials powered, and candles that turn your home into basecamp. ALTUM is our way of blending those worlds—the heights of adventure and the depths of comfort."
     }
   ],
