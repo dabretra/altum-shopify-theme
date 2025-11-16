@@ -41,8 +41,10 @@
         {% if section.settings.hero_image %}
           <img
             src="{{ section.settings.hero_image | image_url: width: 1200 }}"
-            alt="{{ section.settings.hero_image.alt | default: 'Altum hero image' | escape }}"
+            alt="{{ section.settings.hero_image.alt | default: 'Hero image' | escape }}"
           >
+        {% else %}
+          <!-- Fallback grey box -->
         {% endif %}
       </div>
     </div>
@@ -58,11 +60,14 @@
                 <img
                   src="{{ block.settings.image | image_url: width: 800 }}"
                   alt="{{ block.settings.title | escape }}"
+                  style="object-fit: cover; width: 100%; height: 100%; position:absolute; top:0; left:0;"
                 >
               {% endif %}
             </div>
             <div class="category-card__body">
-              <div class="category-card__eyebrow">{{ block.settings.eyebrow }}</div>
+              {% if block.settings.eyebrow != blank %}
+                <div class="category-card__eyebrow">{{ block.settings.eyebrow }}</div>
+              {% endif %}
               <div class="category-card__title">{{ block.settings.title }}</div>
               <div class="category-card__link">{{ block.settings.link_label }}</div>
             </div>
@@ -104,8 +109,7 @@
 
 {% schema %}
 {
-  "name": "Altum Home",
-  "tag": "section",
+  "name": "La-style home",
   "settings": [
     {
       "type": "image_picker",
@@ -116,25 +120,148 @@
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
-      "default": "THE HEIGHTS OF ADVENTURE, THE DEPTHS OF COMFORT"
+      "default": "Performance in the mountains"
     },
     {
       "type": "textarea",
       "id": "heading",
       "label": "Main heading",
-      "default": "ALTUM — Elevated performance gear & immersive travel experiences."
+      "default": "Climb higher. Run further. Recover better."
     },
     {
       "type": "textarea",
       "id": "subheading",
       "label": "Subheading",
-      "default": "Engineered comfort. Alpine durability. Ocean-ready versatility."
+      "default": "Technical footwear and equipment for climbers and outdoor athletes who live for vertical terrain."
     },
     {
       "type": "text",
       "id": "primary_label",
       "label": "Primary button label",
-      "default": "Shop Altum Gear"
+      "default": "Shop climbing"
     },
     {
       "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "Shop all"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "text",
+      "id": "meta_1",
+      "label": "Meta line 1",
+      "default": "Free shipping over $99"
+    },
+    {
+      "type": "text",
+      "id": "meta_2",
+      "label": "Meta line 2",
+      "default": "Designed for rock, trail & alpine"
+    },
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "Featured collection"
+    },
+    {
+      "type": "text",
+      "id": "products_heading",
+      "label": "Products heading",
+      "default": "Featured gear"
+    },
+    {
+      "type": "textarea",
+      "id": "products_subheading",
+      "label": "Products subheading",
+      "default": "Handpicked shoes and equipment ready for your next project."
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Number of products",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category tile",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Tile image"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "Category"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Climbing"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "La-style home",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "eyebrow": "Climb",
+            "title": "Climbing shoes",
+            "link_label": "Shop climbing"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "eyebrow": "Run",
+            "title": "Trail running",
+            "link_label": "Shop running"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "eyebrow": "Explore",
+            "title": "Hiking & approach",
+            "link_label": "Shop hiking"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
