@@ -200,11 +200,13 @@ img {
   margin-bottom: 0.25rem;
 }
 
-.site-nav__item--has-mega:hover .mega-menu {
+.site-nav__item--has-mega:hover .mega-menu,
+.site-nav__item--has-mega.is-mega-open .mega-menu {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.5rem;
 }
+
 
 /* Right side */
 .site-header__right {
