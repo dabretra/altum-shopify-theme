@@ -11,6 +11,21 @@
   "sections": {
     "main": {
       "type": "altum-landing",
+      "blocks": {
+        "offering_card_haRhGj": {
+          "type": "offering_card",
+          "settings": {
+            "label": "Pants",
+            "title": "Trail & Climbing Pants",
+            "text": "Comfortable, durable pants built for long approaches, training days, and rest-day wandering.",
+            "cta_label": "Shop pants",
+            "cta_link": "/collections/pants"
+          }
+        }
+      },
+      "block_order": [
+        "offering_card_haRhGj"
+      ],
       "settings": {
         "eyebrow": "Colorado gear & goods, refined",
         "heading": "Explore the heights of adventure. Sink into the depths of comfort.",
