@@ -104,7 +104,7 @@
       "type": "featured-collection",
       "name": "Featured collection",
       "settings": {
-        "heading": "Featured Gear & Colorado Candles",
+        "heading": "Collection",
         "subheading": "A curated first lineup from ALTUM: trail-ready pants, portable solar power, and hand-poured Colorado candles.",
         "collection": "altum-merch",
         "product_limit": 6
@@ -163,11 +163,33 @@
         "products_subheading": "Handpicked shoes and equipment ready for your next project.",
         "products_limit": 4
       }
+    },
+    "featured_collection_Krqfxa": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "heading": "Apparel",
+        "subheading": "A curated lineup of pants, portable solar panels, and Colorado-made candles.",
+        "collection": "",
+        "product_limit": 6
+      }
+    },
+    "featured_collection_U8AyAc": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "heading": "Racks & Storage",
+        "subheading": "A curated lineup of pants, portable solar panels, and Colorado-made candles.",
+        "collection": "",
+        "product_limit": 6
+      }
     }
   },
   "order": [
     "main",
     "featured_collection_rxCnBb",
-    "altum_BgrXKW"
+    "altum_BgrXKW",
+    "featured_collection_Krqfxa",
+    "featured_collection_U8AyAc"
   ]
 }
