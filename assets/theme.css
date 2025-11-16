@@ -690,6 +690,207 @@ img {
   max-width: 42rem;
   color: #c6d4d1;
 }
+/* ===========================
+   ABOUT PAGE
+   =========================== */
+
+.altum-about-page {
+  background: radial-gradient(circle at top left, #0f3b3c 0, #020908 60%);
+  color: var(--altum-offwhite, #f7f6f2);
+  padding: 3rem 1.5rem 3.5rem;
+}
+
+.altum-about-inner {
+  max-width: var(--altum-max-width, 1120px);
+  margin: 0 auto;
+}
+
+.altum-about-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  color: var(--altum-gold-soft, #f1c97b);
+  margin: 0 0 0.4rem;
+}
+
+.altum-about-heading {
+  font-size: clamp(2.1rem, 3vw, 2.6rem);
+  text-transform: uppercase;
+  margin: 0 0 1.2rem;
+}
+
+.altum-about-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 2.3fr) minmax(260px, 1.2fr);
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.altum-about-copy p {
+  margin-bottom: 0.9rem;
+  color: #d5dfdc;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.altum-about-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 1.2rem;
+}
+
+.altum-about-list li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.altum-about-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--altum-gold-soft, #f1c97b);
+}
+
+.altum-about-aside {
+  background: radial-gradient(circle at top, rgba(20, 70, 72, 0.95), rgba(6, 20, 22, 0.95));
+  border-radius: 1.4rem;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(250, 211, 144, 0.18);
+}
+
+.altum-about-aside-title {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin: 0 0 0.8rem;
+  color: var(--altum-gold-soft, #f1c97b);
+}
+
+.altum-about-aside-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  font-size: 0.9rem;
+  color: #e0ebe7;
+}
+
+.altum-about-aside-list li {
+  margin-bottom: 0.5rem;
+}
+
+.altum-about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.4rem;
+  margin-bottom: 2.4rem;
+}
+
+.altum-about-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 1.4rem;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(116, 180, 168, 0.2);
+}
+
+.altum-about-name {
+  margin: 0 0 0.15rem;
+  font-size: 1.1rem;
+}
+
+.altum-about-role {
+  margin: 0 0 0.8rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--altum-gold-soft, #f1c97b);
+}
+
+.altum-about-card p {
+  font-size: 0.94rem;
+  color: #d6e2df;
+  line-height: 1.6;
+}
+
+.altum-about-why {
+  margin-bottom: 2.6rem;
+}
+
+.altum-about-why-heading {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--altum-gold-soft, #f1c97b);
+  margin-bottom: 0.7rem;
+}
+
+.altum-about-why p {
+  font-size: 0.96rem;
+  color: #d5dfdc;
+  max-width: 44rem;
+  line-height: 1.6;
+}
+
+.altum-about-cta {
+  border-radius: 1.6rem;
+  background: linear-gradient(130deg, rgba(17, 80, 82, 0.96), rgba(2, 10, 10, 0.96));
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.7);
+  padding: 1.4rem 1.6rem;
+}
+
+.altum-about-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+
+.altum-about-cta-heading {
+  font-size: 1.05rem;
+  margin: 0 0 0.4rem;
+}
+
+.altum-about-cta-text {
+  margin: 0;
+  font-size: 0.94rem;
+  color: #dde7e4;
+  max-width: 34rem;
+}
+
+/* Use your existing button style if you already have .altum-btn */
+.altum-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.6rem;
+  border-radius: 999px;
+  background: var(--altum-gold-soft, #f1c97b);
+  color: #141618;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+}
+
+.altum-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Responsive tweaks */
+@media (max-width: 800px) {
+  .altum-about-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .altum-about-page {
+    padding: 2.4rem 1.2rem 3rem;
+  }
+}
+
 
 @media (max-width: 640px) {
   .about-altum {
