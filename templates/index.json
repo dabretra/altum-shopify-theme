@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "altum-landing",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
