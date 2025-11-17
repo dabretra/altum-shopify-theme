@@ -9,3 +9,14 @@
     "main"
   ]
 }
+{
+  "sections": {
+    "main": {
+      "type": "altum-home",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
