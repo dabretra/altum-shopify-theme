@@ -1,28 +1,8 @@
 {
-  "name": "Home page",
   "sections": {
     "main": {
       "type": "altum-home",
-      "settings": {},
-      "blocks": {
-        "category-1": {
-          "type": "category",
-          "settings": {}
-        },
-        "category-2": {
-          "type": "category",
-          "settings": {}
-        },
-        "category-3": {
-          "type": "category",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "category-1",
-        "category-2",
-        "category-3"
-      ]
+      "settings": {}
     }
   },
   "order": [
