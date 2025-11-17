@@ -1,210 +1,299 @@
-<section class="altum-home">
+{% comment %}
+  Altum Home Section
+  Clean, candles-first layout with:
+  - Hero (eyebrow, heading, subheading, 2 buttons)
+  - Shop-by-category cards (blocks)
+  - Featured product (candle by default)
+  - Brand story band
+  - Newsletter sign-up
+{% endcomment %}
 
-  {%- comment -%}
-  HERO
-  {%- endcomment -%}
-  <div class="altum-home__hero">
-    <div class="altum-home__hero-bg">
-      {% if section.settings.hero_image != blank %}
-        <div class="altum-home__hero-bg-image"
-             style="background-image: url({{ section.settings.hero_image | image_url: width: 2000 }});">
+<section class="altum-home" data-section-id="{{ section.id }}">
+  <div class="altum-home__inner">
+
+    {%- comment -%}
+      HERO
+    {%- endcomment -%}
+    <div class="altum-home__hero">
+      <div class="altum-home__hero-copy">
+        {% if section.settings.eyebrow != blank %}
+          <p class="altum-home__eyebrow">
+            {{ section.settings.eyebrow }}
+          </p>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h1 class="altum-home__heading">
+            {{ section.settings.heading }}
+          </h1>
+        {% endif %}
+
+        {% if section.settings.subheading != blank %}
+          <p class="altum-home__subheading">
+            {{ section.settings.subheading }}
+          </p>
+        {% endif %}
+
+        <div class="altum-home__hero-actions">
+          {% if section.settings.primary_button_link != blank and section.settings.primary_button_label != blank %}
+            <a
+              href="{{ section.settings.primary_button_link }}"
+              class="altum-btn altum-btn--primary"
+            >
+              {{ section.settings.primary_button_label }}
+            </a>
+          {% endif %}
+
+          {% if section.settings.secondary_button_link != blank and section.settings.secondary_button_label != blank %}
+            <a
+              href="{{ section.settings.secondary_button_link }}"
+              class="altum-btn altum-btn--ghost"
+            >
+              {{ section.settings.secondary_button_label }}
+            </a>
+          {% endif %}
         </div>
-      {% endif %}
-      <div class="altum-home__hero-bg-overlay"></div>
-    </div>
 
-    <div class="altum-home__hero-inner">
-      <p class="altum-home__eyebrow">
-        {{ section.settings.eyebrow }}
-      </p>
-
-      <h1 class="altum-home__title">
-        {{ section.settings.heading }}
-      </h1>
-
-      <p class="altum-home__subtitle">
-        {{ section.settings.subheading }}
-      </p>
-
-      <div class="altum-home__hero-buttons">
-        {% if section.settings.primary_label != blank and section.settings.primary_link != blank %}
-          <a href="{{ section.settings.primary_link }}" class="altum-home__button altum-home__button--primary">
-            {{ section.settings.primary_label }}
-          </a>
-        {% endif %}
-
-        {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}
-          <a href="{{ section.settings.secondary_link }}" class="altum-home__button altum-home__button--secondary">
-            {{ section.settings.secondary_label }}
-          </a>
+        {% if section.settings.hero_footnote != blank %}
+          <p class="altum-home__hero-footnote">
+            {{ section.settings.hero_footnote }}
+          </p>
         {% endif %}
       </div>
-    </div>
-  </div>
 
-  {%- comment -%}
-  CATEGORY ROW – Candles / Apparel / Gear & Racks
-  {%- endcomment -%}
-  <section class="altum-home__categories">
-    <div class="altum-home__max">
-      <div class="altum-home__categories-header">
-        <p class="altum-home__eyebrow-small">{{ section.settings.category_eyebrow }}</p>
-        <h2 class="altum-home__section-title">{{ section.settings.category_heading }}</h2>
+      <div class="altum-home__hero-media">
+        {% if section.settings.hero_image %}
+          {{ section.settings.hero_image | image_url: width: 900 | image_tag:
+            loading: 'lazy',
+            class: 'altum-home__hero-image',
+            alt: section.settings.heading | escape
+          }}
+        {% else %}
+          <div class="altum-home__hero-placeholder">
+            <span>Colorado-made candles &amp; gear</span>
+          </div>
+        {% endif %}
+
+        <div class="altum-home__hero-stats">
+          <div class="altum-home__stat">
+            <span class="altum-home__stat-label">Made in</span>
+            <span class="altum-home__stat-value">Colorado</span>
+          </div>
+          <div class="altum-home__stat">
+            <span class="altum-home__stat-label">Key scent</span>
+            <span class="altum-home__stat-value">Black Rose + Oud</span>
+          </div>
+          <div class="altum-home__stat">
+            <span class="altum-home__stat-label">Mood</span>
+            <span class="altum-home__stat-value">Cabin after dark</span>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="altum-home__categories-grid">
-        {% for block in section.blocks %}
-          {% if block.type == 'category' %}
-            {% assign collection = block.settings.collection %}
-            {% if collection != blank %}
-              <article class="altum-home__category-card" {{ block.shopify_attributes }}>
-                <div class="altum-home__category-body">
-                  <h3 class="altum-home__category-title">
-                    {{ block.settings.title | default: collection.title }}
+    {%- comment -%}
+      SHOP BY CATEGORY (blocks)
+    {%- endcomment -%}
+    {% if section.blocks.size > 0 %}
+      <section class="altum-home__section altum-home__section--categories">
+        {% if section.settings.collections_heading != blank %}
+          <h2 class="altum-home__section-heading">
+            {{ section.settings.collections_heading }}
+          </h2>
+        {% endif %}
+
+        <div class="altum-home__categories-grid">
+          {% for block in section.blocks %}
+            {% if block.type == 'collection_card' %}
+              {% assign card_collection = block.settings.collection %}
+              <article class="altum-category-card" {{ block.shopify_attributes }}>
+                <div class="altum-category-card__body">
+                  <p class="altum-category-card__eyebrow">
+                    {{ block.settings.eyebrow | default: card_collection.title }}
+                  </p>
+                  <h3 class="altum-category-card__title">
+                    {{ block.settings.title | default: card_collection.title }}
                   </h3>
                   {% if block.settings.text != blank %}
-                    <p class="altum-home__category-text">
+                    <p class="altum-category-card__text">
                       {{ block.settings.text }}
                     </p>
                   {% endif %}
                 </div>
 
-                <div class="altum-home__category-footer">
-                  <a href="{{ collection.url }}" class="altum-home__link">
-                    {{ block.settings.button_label | default: 'Shop now' }} →
-                  </a>
+                <div class="altum-category-card__footer">
+                  {% if card_collection %}
+                    <a
+                      href="{{ card_collection.url }}"
+                      class="altum-btn altum-btn--pill"
+                    >
+                      {{ block.settings.button_label | default: 'Shop ' | append: card_collection.title }}
+                    </a>
+                  {% endif %}
                 </div>
               </article>
             {% endif %}
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </section>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
 
-  {%- comment -%}
-  FEATURED PRODUCT – hero item (e.g., Black Rose + Oud candle)
-  {%- endcomment -%}
-  {% if section.settings.featured_product != blank %}
-    {% assign featured_product = all_products[section.settings.featured_product] %}
-    {% if featured_product %}
-      <section class="altum-home__featured">
-        <div class="altum-home__max altum-home__featured-inner">
-          <div class="altum-home__featured-media">
-            {% if featured_product.featured_image %}
-              <a href="{{ featured_product.url }}">
-                {{ featured_product.featured_image | image_url: width: 900 | image_tag: class: 'altum-home__featured-image', loading: 'lazy' }}
-              </a>
+    {%- comment -%}
+      FEATURED PRODUCT (candle)
+    {%- endcomment -%}
+    {% if section.settings.featured_product %}
+      {% assign fp = section.settings.featured_product %}
+      <section class="altum-home__section altum-home__section--featured">
+        <div class="altum-featured">
+          <div class="altum-featured__media">
+            {% if fp.featured_image %}
+              {{ fp.featured_image | image_url: width: 800 | image_tag:
+                loading: 'lazy',
+                class: 'altum-featured__image',
+                alt: fp.title | escape
+              }}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'altum-featured__placeholder' }}
             {% endif %}
           </div>
+          <div class="altum-featured__content">
+            {% if section.settings.featured_eyebrow != blank %}
+              <p class="altum-featured__eyebrow">
+                {{ section.settings.featured_eyebrow }}
+              </p>
+            {% endif %}
 
-          <div class="altum-home__featured-content">
-            <p class="altum-home__eyebrow-small">{{ section.settings.featured_eyebrow }}</p>
-            <h2 class="altum-home__section-title">
-              {{ featured_product.title }}
+            <h2 class="altum-featured__title">
+              {{ fp.title }}
             </h2>
+
             {% if section.settings.featured_text != blank %}
-              <p class="altum-home__featured-text">
+              <p class="altum-featured__text">
                 {{ section.settings.featured_text }}
               </p>
             {% endif %}
 
-            <p class="altum-home__featured-price">
-              {{ featured_product.price | money }}
+            <p class="altum-featured__price">
+              {% if fp.compare_at_price > fp.price %}
+                <span class="altum-featured__price-current">
+                  {{ fp.price | money }}
+                </span>
+                <span class="altum-featured__price-compare">
+                  {{ fp.compare_at_price | money }}
+                </span>
+              {% else %}
+                <span class="altum-featured__price-current">
+                  {{ fp.price | money }}
+                </span>
+              {% endif %}
             </p>
 
-            <a href="{{ featured_product.url }}" class="altum-home__button altum-home__button--primary">
-              {{ section.settings.featured_button_label }}
+            <a href="{{ fp.url }}" class="altum-btn altum-btn--primary">
+              {{ section.settings.featured_button_label | default: 'View product' }}
             </a>
           </div>
         </div>
       </section>
     {% endif %}
-  {% endif %}
 
-  {%- comment -%}
-  ALTUM STORY
-  {%- endcomment -%}
-  <section class="altum-home__story">
-    <div class="altum-home__max altum-home__story-inner">
-      <div class="altum-home__story-text">
-        <p class="altum-home__eyebrow-small">
-          {{ section.settings.story_eyebrow }}
-        </p>
-        <h2 class="altum-home__section-title">
-          {{ section.settings.story_heading }}
-        </h2>
-        <p class="altum-home__story-body">
-          {{ section.settings.story_text }}
-        </p>
-        {% if section.settings.story_button_label != blank and section.settings.story_button_link != blank %}
-          <a href="{{ section.settings.story_button_link }}" class="altum-home__link">
-            {{ section.settings.story_button_label }} →
-          </a>
-        {% endif %}
-      </div>
-    </div>
-  </section>
-
-  {%- comment -%}
-  NEWSLETTER
-  {%- endcomment -%}
-  <section class="altum-home__newsletter">
-    <div class="altum-home__max altum-home__newsletter-inner">
-      <div class="altum-home__newsletter-text">
-        <p class="altum-home__eyebrow-small">
-          {{ section.settings.newsletter_eyebrow }}
-        </p>
-        <h2 class="altum-home__section-title">
-          {{ section.settings.newsletter_heading }}
-        </h2>
-        <p class="altum-home__newsletter-body">
-          {{ section.settings.newsletter_text }}
-        </p>
-      </div>
-
-      <div class="altum-home__newsletter-form">
-        {% form 'customer', id: 'AltumNewsletter' %}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-
-          <div class="altum-home__newsletter-fields">
-            <input
-              type="email"
-              name="contact[email]"
-              required
-              placeholder="{{ 'newsletter.label' | t | default: 'Enter your email' }}"
-              class="altum-home__newsletter-input">
-            <button type="submit" class="altum-home__button altum-home__button--primary">
-              {{ section.settings.newsletter_button_label }}
-            </button>
-          </div>
-
-          {% if form.posted_successfully? %}
-            <p class="altum-home__newsletter-message altum-home__newsletter-message--success">
-              {{ 'newsletter.success' | t | default: 'Thanks for subscribing.' }}
+    {%- comment -%}
+      BRAND STORY
+    {%- endcomment -%}
+    <section class="altum-home__section altum-home__section--story">
+      <div class="altum-story">
+        <div class="altum-story__copy">
+          {% if section.settings.story_eyebrow != blank %}
+            <p class="altum-story__eyebrow">
+              {{ section.settings.story_eyebrow }}
             </p>
           {% endif %}
 
-          {% if form.errors %}
-            <p class="altum-home__newsletter-message altum-home__newsletter-message--error">
-              {{ form.errors | default_errors }}
+          {% if section.settings.story_heading != blank %}
+            <h2 class="altum-story__heading">
+              {{ section.settings.story_heading }}
+            </h2>
+          {% endif %}
+
+          {% if section.settings.story_text != blank %}
+            <p class="altum-story__text">
+              {{ section.settings.story_text }}
             </p>
           {% endif %}
-        {% endform %}
+
+          {% if section.settings.story_button_label != blank and section.settings.story_button_link != blank %}
+            <a
+              href="{{ section.settings.story_button_link }}"
+              class="altum-btn altum-btn--ghost"
+            >
+              {{ section.settings.story_button_label }}
+            </a>
+          {% endif %}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    {%- comment -%}
+      NEWSLETTER
+    {%- endcomment -%}
+    <section class="altum-home__section altum-home__section--newsletter">
+      <div class="altum-newsletter">
+        <div class="altum-newsletter__copy">
+          {% if section.settings.newsletter_eyebrow != blank %}
+            <p class="altum-newsletter__eyebrow">
+              {{ section.settings.newsletter_eyebrow }}
+            </p>
+          {% endif %}
+
+          {% if section.settings.newsletter_heading != blank %}
+            <h2 class="altum-newsletter__heading">
+              {{ section.settings.newsletter_heading }}
+            </h2>
+          {% endif %}
+
+          {% if section.settings.newsletter_text != blank %}
+            <p class="altum-newsletter__text">
+              {{ section.settings.newsletter_text }}
+            </p>
+          {% endif %}
+        </div>
+
+        <div class="altum-newsletter__form">
+          {% form 'customer', id: 'altum-home-newsletter' %}
+            <input type="hidden" name="contact[tags]" value="newsletter, altum-home" />
+            <div class="altum-newsletter__fields">
+              <input
+                type="email"
+                name="contact[email]"
+                class="altum-input"
+                value="{{ form.email }}"
+                placeholder="Enter your email"
+                required
+              />
+              <button type="submit" class="altum-btn altum-btn--primary">
+                {{ section.settings.newsletter_button_label | default: 'Get updates' }}
+              </button>
+            </div>
+            {% if form.errors %}
+              <p class="altum-newsletter__message altum-newsletter__message--error">
+                {{ form.errors | default_errors }}
+              </p>
+            {% elsif form.posted_successfully? %}
+              <p class="altum-newsletter__message altum-newsletter__message--success">
+                {{ section.settings.newsletter_success | default: 'Thanks for signing up.' }}
+              </p>
+            {% endif %}
+          {% endform %}
+        </div>
+      </div>
+    </section>
+
+  </div>
 </section>
 
 {% schema %}
 {
   "name": "Altum Home",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "hero_image",
-      "label": "Hero background image"
-    },
     {
       "type": "text",
       "id": "eyebrow",
@@ -221,60 +310,63 @@
       "type": "textarea",
       "id": "subheading",
       "label": "Hero subheading",
-      "default": "ALTUM curates adventure-ready apparel, off-grid power, and small-batch Colorado candles—so your time on the mountain and your time at home both feel equally dialed in."
+      "default": "ALTUM curates adventure-ready pants, off-grid solar power, and small-batch Colorado candles—so your time on the mountain and your time at home feel equally dialed in."
     },
     {
       "type": "text",
-      "id": "primary_label",
+      "id": "primary_button_label",
       "label": "Primary button label",
       "default": "Shop candles"
     },
     {
       "type": "url",
-      "id": "primary_link",
+      "id": "primary_button_link",
       "label": "Primary button link"
     },
     {
       "type": "text",
-      "id": "secondary_label",
+      "id": "secondary_button_label",
       "label": "Secondary button label",
       "default": "Explore all products"
     },
     {
       "type": "url",
-      "id": "secondary_link",
+      "id": "secondary_button_link",
       "label": "Secondary button link"
     },
-
     {
-      "type": "text",
-      "id": "category_eyebrow",
-      "label": "Categories eyebrow",
-      "default": "Shop the collection"
+      "type": "textarea",
+      "id": "hero_footnote",
+      "label": "Hero footnote",
+      "default": "Small-batch pours, tested on the Front Range, packed for life between climbs and cabin nights."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
     },
     {
       "type": "text",
-      "id": "category_heading",
-      "label": "Categories heading",
-      "default": "Three ways to bring Colorado home"
-    },
-
-    {
-      "type": "text",
-      "id": "featured_eyebrow",
-      "label": "Featured product eyebrow",
-      "default": "Featured product"
+      "id": "collections_heading",
+      "label": "Collections heading",
+      "default": "Shop by category"
     },
     {
       "type": "product",
       "id": "featured_product",
-      "label": "Featured product"
+      "label": "Featured product (candle recommended)"
+    },
+    {
+      "type": "text",
+      "id": "featured_eyebrow",
+      "label": "Featured product eyebrow",
+      "default": "Featured candle"
     },
     {
       "type": "textarea",
       "id": "featured_text",
-      "label": "Featured product description",
-      "default": "Hand-poured soy wax in an amber jar with notes of Black Rose + Oud—our signature Colorado-night scent."
+      "label": "Featured product copy",
+      "default": "Hand-poured soy wax in an 8oz amber jar with notes of Black Rose + Oud—our signature Colorado-night scent."
     },
     {
       "type": "text",
@@ -282,24 +374,23 @@
       "label": "Featured product button label",
       "default": "Shop this candle"
     },
-
     {
       "type": "text",
       "id": "story_eyebrow",
       "label": "Story eyebrow",
-      "default": "Born in Colorado"
+      "default": "Meet the people behind ALTUM"
     },
     {
       "type": "text",
       "id": "story_heading",
       "label": "Story heading",
-      "default": "The heights of adventure, the depths of comfort."
+      "default": "Born in Colorado. Built for life between summits and slow nights in."
     },
     {
       "type": "textarea",
       "id": "story_text",
       "label": "Story text",
-      "default": "ALTUM started with two friends chasing long approaches, hot springs nights, and slow cabin mornings. We build candles, apparel, and gear that feel as intentional as the days we spend outside."
+      "default": "ALTUM is run by two climbers who moved west for longer approaches, bluebird days, and star-lit nights. We design candles, gear, and layers that keep the mountains in your rhythm—even when you’re home."
     },
     {
       "type": "text",
@@ -312,7 +403,6 @@
       "id": "story_button_link",
       "label": "Story button link"
     },
-
     {
       "type": "text",
       "id": "newsletter_eyebrow",
@@ -323,26 +413,31 @@
       "type": "text",
       "id": "newsletter_heading",
       "label": "Newsletter heading",
-      "default": "Get Colorado in your inbox."
+      "default": "Colorado nights, in your inbox."
     },
     {
       "type": "textarea",
       "id": "newsletter_text",
       "label": "Newsletter text",
-      "default": "New candle runs, small-batch gear drops, and field notes from the Front Range."
+      "default": "Be the first to know about new candle runs, gear drops, and field notes from the Front Range."
     },
     {
       "type": "text",
       "id": "newsletter_button_label",
       "label": "Newsletter button label",
       "default": "Get the Altum brief"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_success",
+      "label": "Newsletter success message",
+      "default": "Thanks for signing up. See you at golden hour."
     }
   ],
   "blocks": [
     {
-      "type": "category",
-      "name": "Category card",
-      "limit": 3,
+      "type": "collection_card",
+      "name": "Collection card",
       "settings": [
         {
           "type": "collection",
@@ -351,37 +446,36 @@
         },
         {
           "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "Restore"
+        },
+        {
+          "type": "text",
           "id": "title",
-          "label": "Title"
+          "label": "Title",
+          "default": "Colorado-made candles"
         },
         {
           "type": "textarea",
           "id": "text",
-          "label": "Text"
+          "label": "Text",
+          "default": "Hand-poured in Colorado. Clean-burning, mountain-inspired, crafted for calm after adventure."
         },
         {
           "type": "text",
           "id": "button_label",
           "label": "Button label",
-          "default": "Shop now"
+          "default": "Shop candles"
         }
       ]
     }
   ],
+  "max_blocks": 4,
   "presets": [
     {
       "name": "Altum Home",
-      "blocks": [
-        {
-          "type": "category"
-        },
-        {
-          "type": "category"
-        },
-        {
-          "type": "category"
-        }
-      ]
+      "category": "Custom"
     }
   ]
 }
